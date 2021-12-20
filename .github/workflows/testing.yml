@@ -32,7 +32,7 @@ jobs:
       - name: Create a new nova application
         run: rebar3 new nova my_app
       - name: Compile the app
-        run: rebar3 release
+        run: rebar3 compile && rebar3 release
         working-directory: ./my_app
       - name: Run server and test with curl
         run: |
