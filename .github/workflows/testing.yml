@@ -26,3 +26,4 @@ jobs:
         working-directory: ./my_app
       - name: Run server and test with curl
         run: rebar3 shell & sleep 30 && curl -f http://localhost:8080/
+        working-directory: ./my_app
