@@ -17,8 +17,8 @@ jobs:
         with:
           otp-version: '24.1.3'
           rebar3-version: '3.17.0'
-          - name: Restore dependency/build cache 🗃️
-      - uses: actions/cache@v2
+      - name: Restore dependency/build cache 🗃️
+        uses: actions/cache@v2
         with:
           path: |
             deps
