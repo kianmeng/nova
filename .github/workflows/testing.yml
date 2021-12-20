@@ -24,3 +24,5 @@ jobs:
       - name: Compile the app
         run: rebar3 compile
         working-directory: ./my_app
+      - name: Run server and test with curl
+        run: rebar3 shell & sleep 30 && curl -f http://localhost:8080/
