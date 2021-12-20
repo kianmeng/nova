@@ -17,6 +17,16 @@ jobs:
         with:
           otp-version: '24.1.3'
           rebar3-version: '3.17.0'
+          - name: Restore dependency/build cache 🗃️
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ steps.setup-beam.outputs.otp-version }}-${{ hashFiles('**/rebar.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ steps.setup-beam.outputs.otp-version }}-
+            ${{ runner.os }}-mix-
       - name: Run the Nova installation script
         run: sh -c "$(curl -fsSL https://raw.githubusercontent.com/novaframework/rebar3_nova/master/install.sh)"
       - name: Create a new nova application
@@ -25,5 +35,5 @@ jobs:
         run: rebar3 compile
         working-directory: ./my_app
       - name: Run server and test with curl
-        run: rebar3 shell & sleep 30 && curl -f http://localhost:8080/
+        run: rebar3 shell
         working-directory: ./my_app
