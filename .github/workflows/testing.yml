@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  build:
+  build-and-run:
 
     runs-on: ubuntu-latest
     name: Erlang/OTP 24.1.3
@@ -32,8 +32,11 @@ jobs:
       - name: Create a new nova application
         run: rebar3 new nova my_app
       - name: Compile the app
-        run: rebar3 compile
+        run: rebar3 release
         working-directory: ./my_app
       - name: Run server and test with curl
-        run: rebar3 shell
-        working-directory: ./my_app
+        run: |
+          ./test daemon &
+          sleep 20 &&
+          curl http://localhost:8080
+        working-directory: ./_build/default/rel/test/bin/
