@@ -20,15 +20,15 @@ pre_request(#{headers := Headers} = Req, Options) ->
     
 
 accept(#{<<"accept">> := Accept}, #{accept := AcceptList}) ->
-    lists:member(Accept, AcceptList);
+    validate(Accept, AcceptList);
 accept(_, _) ->
     true.
 
 content_type(#{<<"content-type">> := <<"application/json", _/binary>>}, #{content_type := ContentTypeList}) ->
-    valdiate(<<"application/json">>, ContentTypeList);
+    validate(<<"application/json">>, ContentTypeList);
 content_type(#{<<"content-type">> := <<"application/x-www-form-urlencoded", _/binary>>},
              #{content_type := ContentTypeList}) ->
-    valdiate(<<"application/json">>, ContentTypeList);
+    validate(<<"application/json">>, ContentTypeList);
 content_type(#{<<"content-type">> := ContentType}, #{content_type := ContentTypeList}) ->
     validate(ContentType, ContentTypeList);
 content_type(_, _) ->
